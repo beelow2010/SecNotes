@@ -59,7 +59,7 @@ sc qc <servicename>
 sc query <servicename>
 ```
 
-![image-20200723235115960](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200723235115960.png)
+![image-20200723235115960](https://user-images.githubusercontent.com/33549572/88439319-280b1b00-ce0b-11ea-9c95-8faff6848b8c.png)
 
 Service somit umkonfigurieren und starten:
 
