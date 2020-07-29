@@ -383,7 +383,6 @@ strace <program> 2>&1 | grep -iE "open|access|no such file"
 Beispiel:
 
 <img src="https://user-images.githubusercontent.com/33549572/88826793-73d21180-d1c9-11ea-939a-ec8cc94e40df.png" alt="image-20200726145804467" style="zoom:80%;" />
-![image-20200726145804467](https://user-images.githubusercontent.com/33549572/88826793-73d21180-d1c9-11ea-939a-ec8cc94e40df.png)
 
 Das File libcalc.so befindet sich im beschreibbaren User Directory und kann durch eine eigene .so Datei ersetzt werden. Hierfür muss der exakte Pfad genutzt werden. Das .so File wird wie folgt erzeugt:
 
@@ -412,7 +411,7 @@ strace -v -f -e execve <command> 2>&1 | grep exec
 ltrace <command>
 ```
 
-<img src="C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726151056932.png" alt="image-20200726151056932" style="zoom:80%;" />
+<img src="https://user-images.githubusercontent.com/33549572/88826992-ac71eb00-d1c9-11ea-8c69-be01e2fbba8a.png" alt="image-20200726151056932" style="zoom:80%;" />
 
 Der Befehl `service` wird ohne absoluten Pfad ausgeführt und sucht daher in der PATH Variable nach Pfaden. Die PATH Variable kann vom Benutzer manipuliert werden, indem ein selbst gewähltes Verzeichnis an den Anfang der Variable gehängt wird. Um das aktuelle Verzeichnis vorne anzuhängen, kann folgender Befehl genutzt werden:
 
@@ -435,13 +434,13 @@ int main() {
 
 Zuletzt das Programm starten mit **/usr/local/bin/suid-env** - alternativer Weg (gleicher Output):
 
-<img src="C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726151546266.png" alt="image-20200726151546266" style="zoom:80%;" />
+![image-20200726151546266](https://user-images.githubusercontent.com/33549572/88827119-d4f9e500-d1c9-11ea-81e6-c3f0b10de9cc.png)
 
 #### Abusing Shell Features (1)
 
 Bash Versionen unter 4.2-048 erlaubt Bash Funktionen mit "/" im Namen, welche bevorzug ausgeführt werden. Wenn ein Programm (mit SUID) ein weiteres Programm aufruft - welches mit einem absoluten Pfad angegeben ist - kann mittels einer Funktion anderer "Code" ausgeführt werden. 
 
-<img src="C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726185301811.png" alt="image-20200726185301811" style="zoom: 80%;" />
+![image-20200726185301811](https://user-images.githubusercontent.com/33549572/88827152-e0e5a700-d1c9-11ea-9ad9-834bf2bedbfe.png)
 
 Mit folgenden Befehlen kann nun eine Funktion als root User ausgeführt werden:
 
@@ -491,7 +490,7 @@ mount -o rw,vers=2 <target-ip>:<share> <local-directory>
 
 Wenn Dateien auf einem Share angelegt werden, haben diese als Owner/Group den tatsächlichen Ersteller eingetragen, auch wenn dieser auf dem System nicht existiert. Dateien, welche als root angelegt werden, bekommen durch die (Default-) Konfiguration **root squashing** allerdings den Owner **nobody**. Wenn jedoch die Option **no_root_squash** verwendet wird, kann dies u.U. für PrivEsc ausgenutzt werden. 
 
-<img src="C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726192045861.png" alt="image-20200726192045861" style="zoom:80%;" />
+![image-20200726192045861](https://user-images.githubusercontent.com/33549572/88827182-e9d67880-d1c9-11ea-9418-4d5ce22ed156.png)
 
 Hierfür wird von Kali aus eine Bash als root mit msfvenom erzeugt und auf den Share mit den entsprechenden Bits kopiert:
 
@@ -507,6 +506,6 @@ chmod +xs /tmp/nfs/shell.elf
 /tmp/shell.elf
 ```
 
-![image-20200726192507554](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726192507554.png)
+![image-20200726192507554](https://user-images.githubusercontent.com/33549572/88827209-f35fe080-d1c9-11ea-9091-f535a1edbb8a.png)
 
-<img src="C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726192549433.png" alt="image-20200726192549433" style="zoom: 80%;" />
+![image-20200726192549433](https://user-images.githubusercontent.com/33549572/88827233-fa86ee80-d1c9-11ea-9fea-f1977f2703be.png)
