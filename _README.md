@@ -1,2 +1,0 @@
-# SecNotes
-InfosecNotes
